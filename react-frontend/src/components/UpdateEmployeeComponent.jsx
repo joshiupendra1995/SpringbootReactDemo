@@ -19,7 +19,9 @@ class UpdateEmployeeComponent extends Component {
     componentDidMount(){
         EmployeeService.getEmployeeById(this.state.id).then( (res) =>{
             let employee = res.data;
-            this.setState({firstName: employee.firstName,
+            this.setState({
+                id: employee.id,
+                firstName: employee.firstName,
                 lastName: employee.lastName,
                 emailId : employee.emailId
             });
@@ -28,10 +30,10 @@ class UpdateEmployeeComponent extends Component {
 
     updateEmployee = (e) => {
         e.preventDefault();
-        let employee = {firstName: this.state.firstName, lastName: this.state.lastName, emailId: this.state.emailId};
+        let employee = {id:this.state.id, firstName: this.state.firstName, lastName: this.state.lastName, emailId: this.state.emailId};
         console.log('employee => ' + JSON.stringify(employee));
         console.log('id => ' + JSON.stringify(this.state.id));
-        EmployeeService.updateEmployee(employee, this.state.id).then( res => {
+        EmployeeService.updateEmployee(employee).then( res => {
             this.props.history.push('/employees');
         });
     }

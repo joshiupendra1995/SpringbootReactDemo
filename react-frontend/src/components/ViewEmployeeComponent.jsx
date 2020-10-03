@@ -36,9 +36,13 @@ class ViewEmployeeComponent extends Component {
                             <label> Employee Email ID: </label>
                             <div> { this.state.employee.emailId }</div>
                         </div>
+                        <div className="row">
+                        <p><a href="/employees">Back To Employees List</a></p>
+                        </div>
                     </div>
 
                 </div>
+                
             </div>
         )
     }

@@ -1,8 +1,6 @@
 package com.demo.app.controller;
 
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.demo.app.model.Employee;
+import com.demo.app.dto.EmployeeDto;
 import com.demo.app.service.EmployeeService;
 
 /**
@@ -34,7 +31,7 @@ public class EmployeeController {
 	 * @return employees
 	 */
 	@GetMapping("/employees")
-	public List<Employee> getAllEmployees() {
+	public List<EmployeeDto> getAllEmployees() {
 		return employeeService.getAllEmployees();
 	}
 
@@ -44,8 +41,8 @@ public class EmployeeController {
 	 * @return Employee
 	 */
 	@PostMapping("/employees")
-	public Employee createEmployee(@RequestBody Employee employee) {
-		return employeeService.createEmployee(employee);
+	public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
+		return employeeService.createEmployee(employeeDto);
 	}
 
 	// get employee by id rest api
@@ -54,7 +51,7 @@ public class EmployeeController {
 	 * @return Employee
 	 */
 	@GetMapping("/employees/{id}")
-	public Employee getEmployeeById(@PathVariable Long id) {
+	public EmployeeDto getEmployeeById(@PathVariable Long id) {
 
 		return employeeService.getEmployeeById(id);
 	}
@@ -66,10 +63,10 @@ public class EmployeeController {
 	 * @param employeeDetails
 	 * @return Employee
 	 */
-	@PutMapping("/employees/{id}")
-	public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+	@PutMapping("/employees")
+	public EmployeeDto updateEmployee(@RequestBody EmployeeDto employeeDto) {
 
-		return employeeService.updateEmployee(id, employee);
+		return employeeService.updateEmployee(employeeDto);
 	}
 
 	// delete employee rest api
@@ -78,9 +75,9 @@ public class EmployeeController {
 	 * @return map
 	 */
 	@DeleteMapping("/employees/{id}")
-	public Map<String, Boolean> deleteEmployee(@PathVariable Long id) {
-
-		return employeeService.deleteEmployee(id);
+	public boolean deleteEmployee(@PathVariable Long id) {
+		employeeService.deleteEmployee(id);
+		return Boolean.TRUE;
 	}
 
 }

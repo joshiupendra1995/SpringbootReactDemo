@@ -1,13 +1,11 @@
 package com.demo.app.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.demo.app.exception.ResourceNotFoundException;
+import com.demo.app.dto.EmployeeDto;
+import com.demo.app.exception.BusinessException;
+import com.demo.app.mapper.EmployeeMapper;
 import com.demo.app.model.Employee;
 import com.demo.app.repository.EmployeeRepository;
 
@@ -17,37 +15,32 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	public List<Employee> getAllEmployees() {
-		return employeeRepository.findAll();
+	@Autowired
+	private EmployeeMapper empMapper;
+
+	public List<EmployeeDto> getAllEmployees() {
+		return empMapper.getDtoList(employeeRepository.findAll());
 	}
 
-	public Employee createEmployee(Employee employee) {
-		return employeeRepository.save(employee);
+	public EmployeeDto createEmployee(EmployeeDto employeeDto) {
+		return empMapper.getDto(employeeRepository.save(empMapper.getEO(employeeDto)));
 	}
 
-	public Employee getEmployeeById(Long id) {
-		return employeeRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + id));
+	public EmployeeDto getEmployeeById(Long id) {
+		return empMapper.getDto(employeeRepository.findById(id)
+				.orElseThrow(() -> new BusinessException("Employee doesn't exist with id {}" + id)));
 
 	}
 
-	public Employee updateEmployee(Long id, Employee employee) {
-		Employee emp = employeeRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + id));
-		emp.setFirstName(employee.getFirstName());
-		emp.setLastName(employee.getLastName());
-		emp.setEmailId(employee.getEmailId());
-		return employeeRepository.save(emp);
+	public EmployeeDto updateEmployee(EmployeeDto dto) {
+		return empMapper.getDto(employeeRepository.save(empMapper.getEO(dto)));
 	}
 
-	public Map<String, Boolean> deleteEmployee(Long id) {
+	public boolean deleteEmployee(Long id) {
 		Employee employee = employeeRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + id));
-
+				.orElseThrow(() -> new BusinessException("Employee doesn't exist with id{}" + id));
 		employeeRepository.delete(employee);
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
-		return response;
+		return Boolean.TRUE;
 	}
 
 }

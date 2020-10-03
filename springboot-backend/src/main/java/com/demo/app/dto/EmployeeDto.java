@@ -1,34 +1,20 @@
-package com.demo.app.model;
+package com.demo.app.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class EmployeeDto {
 
-@Entity
-@Table(name = "employees")
-public class Employee {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "first_name", nullable = false)
 	private String firstName;
 
-	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "email_id")
 	private String emailId;
 
-	public Employee() {
+	public EmployeeDto() {
 
 	}
 
-	public Employee(long id, String firstName, String lastName, String emailId) {
+	public EmployeeDto(long id, String firstName, String lastName, String emailId) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -67,4 +53,7 @@ public class Employee {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+	
+	
+
 }
