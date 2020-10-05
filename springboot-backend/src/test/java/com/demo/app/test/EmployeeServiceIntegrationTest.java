@@ -28,4 +28,10 @@ public class EmployeeServiceIntegrationTest {
 
 	}
 
+	@Test
+	public void testCreateEmployee() {
+
+		employeeService.createEmployee(new EmployeeDto(2, "Anmol", "j", "anmol@l.com"));
+	}
+
 }
