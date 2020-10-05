@@ -12,13 +12,13 @@ import com.demo.app.service.EmployeeService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EmployeeRepoIntegrationTest {
+public class EmployeeServiceIntegrationTest {
 
 	@Autowired
 	private EmployeeService employeeService;
 
 	@Test
-	public void testVerifyEmailId() {
+	public void testVerifyEmailIdAndName() {
 
 		String emailId = "joshiupendra34@gmail.com";
 		String fullName = "upendra joshi";

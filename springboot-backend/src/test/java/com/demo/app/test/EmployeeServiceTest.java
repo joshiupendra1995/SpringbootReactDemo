@@ -18,7 +18,7 @@ import com.demo.app.repository.EmployeeRepository;
 import com.demo.app.service.EmployeeService;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EmployeeRepoTest {
+public class EmployeeServiceTest {
 
 	@InjectMocks
 	private EmployeeService employeeService;
@@ -35,7 +35,7 @@ public class EmployeeRepoTest {
 	}
 
 	@Test
-	public void testVerifyEmailId() {
+	public void testVerifyEmailIdAndName() {
 
 		String emailId = "joshiupendra34@gmail.com";
 		String fullName = "upendra joshi";
